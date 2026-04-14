@@ -14,11 +14,12 @@ const daySchema = new mongoose.Schema({
 
 const tripSchema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true
     },
+    source: String,
     destination: {
       type: String,
       required: true
@@ -27,6 +28,19 @@ const tripSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
+    people: Number,
+    budgetType: String,
+    budget: {
+      total: Number,
+      distance: Number,
+      breakdown: {
+        stay: Number,
+        food: Number,
+        local: Number,
+        travel: Number
+      }
+    },
+    transport: String,
     preferences: [String],
     itinerary: [daySchema]
   },
@@ -34,6 +48,9 @@ const tripSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+tripSchema.index({ user: 1, createdAt: -1 });
+tripSchema.index({ destination: "text" });
 
 const Trip = mongoose.model("Trip", tripSchema);
 
