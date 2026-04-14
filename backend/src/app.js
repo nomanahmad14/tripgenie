@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-import authMiddleware from "./middlewares/authMiddleware.js";
+import tripRoutes from "./routes/tripRoutes.js";
 
 const app = express();
 
@@ -10,13 +10,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
-app.get("/api/protected", authMiddleware, (req, res) => {
-  res.json({
-    success: true,
-    message: "Protected route accessed",
-    user: req.user
-  });
-});
+app.use("/api/trips", tripRoutes);
 
 app.get("/", (req, res) => {
   res.send("TripGenie API running");

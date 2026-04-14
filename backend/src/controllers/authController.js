@@ -1,5 +1,6 @@
 import authService from "../services/authService.js";
 
+
 const register = async (req, res) => {
   try {
     const user = await authService.registerUser(req.body);
@@ -33,6 +34,8 @@ const login = async (req, res) => {
     });
   }
 };
+
+
 
 export default { register, login };
 
