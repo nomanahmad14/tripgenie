@@ -32,8 +32,42 @@ const getTravelOptions = asyncHandler(async (req, res) => {
   });
 });
 
+const getTripById = async (req, res) => {
+  try {
+    const trip = await tripService.getTripById(req.params.id, req.user.id);
+
+    res.json({
+      success: true,
+      data: trip
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+const deleteTrip = async (req, res) => {
+  try {
+    await tripService.deleteTrip(req.params.id, req.user.id);
+
+    res.json({
+      success: true,
+      message: "Trip deleted successfully"
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
 export default {
   generateTrip,
   getAllTrips,
-  getTravelOptions
+  getTravelOptions,
+  getTripById,
+  deleteTrip
 };

@@ -192,7 +192,28 @@ const getAllTripsService = async (userId, query) => {
     };
 };
 
+const getTripById = async (tripId, userId) => {
+  const trip = await Trip.findOne({ _id: tripId, user: userId });
+
+  if (!trip) {
+    throw new Error("Trip not found");
+  }
+
+  return trip;
+};
+
+const deleteTrip = async (tripId, userId) => {
+  const trip = await Trip.findOneAndDelete({ _id: tripId, user: userId });
+
+  if (!trip) {
+    throw new Error("Trip not found or unauthorized");
+  }
+
+  return;
+};
 export default {
     generateTrip,
-    getAllTripsService
+    getAllTripsService,
+    getTripById,
+    deleteTrip
 };

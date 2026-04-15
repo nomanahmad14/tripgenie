@@ -16,5 +16,7 @@ router.post(
 );
 
 router.get("/all", authMiddleware, tripController.getAllTrips);
+router.get("/:id", authMiddleware, tripController.getTripById);
+router.delete("/:id", authMiddleware, tripController.deleteTrip);
 
 export default router;
