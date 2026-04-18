@@ -59,7 +59,9 @@ const loginUser = async (data) => {
     { expiresIn: "7d" }
   );
 
-  return { token };
+  return { token ,
+    user: { id: user._id, name: user.name, email: user.email }
+  };
 };
 
 
@@ -102,7 +104,9 @@ const verifyOTP = async (data) => {
     { expiresIn: "7d" }
   );
 
-  return { token };
+  return { token ,
+    user: { id: user._id, name: user.name, email: user.email }
+  };
 };
 
 const resendOTP = async (data) => {
@@ -189,6 +193,7 @@ const resetPassword = async (data) => {
   user.password = hashedPassword;
   user.otp = undefined;
   user.otpExpiry = undefined;
+  user.isVerified = true;
 
   await user.save();
 

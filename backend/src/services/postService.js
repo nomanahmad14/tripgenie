@@ -55,6 +55,7 @@ const getPosts = async (query) => {
 
 const getMyPosts = async (userId) => {
   const posts = await Post.find({ user: userId })
+    .populate("user", "name")
     .sort({ createdAt: -1 });
 
   return posts;
